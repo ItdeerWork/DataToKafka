@@ -1,6 +1,7 @@
 package cn.itdeer.kafka;
 
 import cn.itdeer.kafka.tools.Constants;
+import cn.itdeer.kafka.tools.Message;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -10,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/7/9/11:06
  */
-
 @Slf4j
 public class Main {
 
@@ -19,15 +19,11 @@ public class Main {
         /**
          * 执行多线程
          */
-        for (Object topic_name : Constants.TOPIC_NAME_AND_THREADS.keySet()) {
-
-            String thread_single_data = Constants.TOPIC_NAME_AND_THREADS.get(topic_name);
-            String[] temp = thread_single_data.split("_");
-
-            for (int i = 0; i < Integer.parseInt(temp[0]); i++) {
-                Thread thread = new Producer(topic_name.toString(), Integer.parseInt(temp[1]));
+        for (Message message : Constants.TOPIC_DATA_MESSAGE) {
+            for (int i = 0; i < message.getThreads(); i++) {
+                Thread thread = new Producer(message.getTopic_name(), message.getData_number(), message.getPoint_number(), message.getTime_frequency());
                 thread.start();
-                log.info("Thread ID:{}    Thread Name:{}    for Topic Name:{}    Amount of data per thread:{}", thread.getId(), thread.getName(), topic_name.toString(), temp[1]);
+                log.info("Thread ID:{}    Thread Name:{}    for Topic Name:{}    Single Thread Send Data:{}    Point Number:{}", thread.getId(), thread.getName(), message.getTopic_name(), message.getData_number(), message.getPoint_number());
             }
         }
     }

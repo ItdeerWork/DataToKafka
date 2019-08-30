@@ -9,17 +9,45 @@ Maven：3.3.9+
 mvn clean package
 
 运行命令：
-在DataToKafka-1.0.0.jar所在的目录，创建名为config的目录，
+在DataToKafka-2.0.0.jar所在的目录，创建名为config的目录，
 在config目录中创建runtime.properties的配置文件，配置一下必要的参数即可运行起来
 
-java -jar 在DataToKafka-1.0.0.jar
+java -jar 在DataToKafka-2.0.0.jar
 
 会在Jar包所在的目录创建logs目录，目录里面有相关的运行日志，可供查阅
 ```
 
+### 更新日志
+
+ - 更改上个版本的一些配置
+ - 添加支持指定单独主题的测点数
+ - 解析发送数据配置为JSON格式
+ - 针对单个主题设置发送频率
+
 ### 关于程序运行参数设定
 
-[1] DATA_FORMAT
+[1] TOPIC_DATA_MESSAGE
+
+```
+参数名称：TOPIC_DATA_MESSAGE(要发送数据的主题)
+是否必须：是
+默认值：无
+参数示例：TOPIC_DATA_MESSAGE=[{"topic_name":"Demo01", "threads":2, "data_number":100000, "point_number":1000},{ "topic_name":"Demo02", "threads":4, "data_number":200000, "point_number":2000 }]
+```
+
+> 参数介绍
+
+```
+{"topic_name":"Demo01", "threads":2, "data_number":100000, "point_number":1000}
+
+四个参数：
+    第一个参数是：主题的名称 不能为空（需要提前创建，默认创建的话只有一个分区）
+    第二个参数是：启动的线程数 可以不设置（默认为1个线程）
+    第三个参数是：每一个线程发送的数据量 可以不设置（默认为10000条消息）
+    第四个参数是：发送给当前主题的测点数 可以不设置则使用默认值，默认值为-1则不使用生成测点功能，需要对当前主题单独生效使用生成测点，则需要在这里配置
+```
+
+[2] DATA_FORMAT
 
 ```
 参数名称：DATA_FORMAT(日期格式)
@@ -34,40 +62,70 @@ java -jar 在DataToKafka-1.0.0.jar
 设置发送数据的时间格式
 ```
 
-[2] TOPIC_NAME_AND_THREADS
+
+[3] DEFAULT_THREADS
 
 ```
-参数名称：TOPIC_NAME_AND_THREADS(主题名称 启动的线程数 每一个线程需要发送的数据量)
-是否必须：是
-默认值：无
-参数示例：TOPIC_NAME_AND_THREADS=[demo,2,1000000]
+参数名称：DEFAULT_THREADS(主题线程数)
+是否必须：否（不设置此参数则使用默认值）
+默认值：1
+参数示例：DEFAULT_THREADS=1
 ```
 
 > 参数介绍
 
 ```
-[demo,2,1000000]
-
-三个参数：
-    第一个参数是：主题的名称 不能为空（需要提前创建，默认创建的话只有一个分区）
-    第二个参数是：启动的线程数 可以不设置（默认为1个线程）
-    第三个参数是：每一个线程发送的数据量 可以不设置（默认为10000条消息）
+设置每个主题的模式启动线程数
 ```
 
-[3] SINGLE_THREAD_SEND_DATA
+[4] DEFAULT_DATA_NUMBER
 
 ```
-参数名称：SINGLE_THREAD_SEND_DATA(每个线程默认发数的数据量)
+参数名称：DEFAULT_DATA_NUMBER(每个线程默认发数的数据量)
 是否必须：否
 默认值：10000
-参数示例：SINGLE_THREAD_SEND_DATA=10000
+参数示例：DEFAULT_DATA_NUMBER=10000
 ```
 
 > 参数介绍
 
 ```
 当不设置某一个Topic单线程发数的数据量时使用的默认值，此默认值可以通过此参数进行设置
-当需要每一个线程都需要发送同样条数的数据时，可以在TOPIC_NAME_AND_THREADS 参数不设置单个线程的发数条数，此时就会使用的是默认值
+当需要每一个线程都需要发送同样条数的数据时，可以在TOPIC_DATA_MESSAGE 参数不设置单个线程的发数条数，此时就会使用的是默认值
+```
+
+[5] DEFAULT_POINT_NUMBER
+
+```
+参数名称：DEFAULT_POINT_NUMBER(向主题发送数据之前生成的测点数)
+是否必须：否
+默认值：-1（表示不提前生产测点，使用随机生成）
+参数示例：DEFAULT_POINT_NUMBER=-1
+```
+
+> 参数介绍
+
+```
+当设置当前的主题有2000个测点时，程序会在发数之前生成2000个测点的tagName的名称，然后轮询这些测点的名称，使用测点的名称拼成整体的数据
+当不设置此参数时，则默认不使用生成测点名称
+若所有的主题都是发送指点点数的测点数据时，可以不用再TOPIC_DATA_MESSAGE中设置point_number，可以使用DEFAULT_POINT_NUMBER统一设置。
+```
+
+[6] DEFAULT_TIME_FREQUENCY
+
+```
+参数名称：DEFAULT_TIME_FREQUENCY(向主题发送数据的频率)
+是否必须：否
+默认值：-1（不设置频率，按照机器最大发数能力）
+参数示例：DEFAULT_TIME_FREQUENCY=-1
+```
+
+> 参数介绍
+
+```
+当设置当前的主题有2000个测点时，程序会在发数之前生成2000个测点的tagName的名称，然后轮询这些测点的名称，使用测点的名称拼成整体的数据
+当不设置此参数时，则默认不使用生成测点名称
+若所有的主题都是发送指点点数的测点数据时，可以不用再TOPIC_DATA_MESSAGE中设置point_number，可以使用DEFAULT_POINT_NUMBER统一设置。
 ```
 
 ### 关于Kafka运行参数设定
@@ -263,4 +321,3 @@ request.timeout.ms 即控制这个时间，默认值为30s
 ```
 key.serializer, value.serializer说明了使用何种序列化方式将用户提供的key和vaule值序列化成字节
 ```
-

@@ -1,5 +1,6 @@
 package cn.itdeer.kafka.tools;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -12,6 +13,7 @@ import java.util.Properties;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/7/9/15:27
  */
+
 @Slf4j
 public class ResolverConfig {
 
@@ -26,7 +28,8 @@ public class ResolverConfig {
             if (prop == null) {
                 prop = new Properties();
                 String runTimePath = System.getProperty("user.dir");
-                in = new FileInputStream(new File(runTimePath + File.separator + "config" + File.separator + Constants.configFileName));
+                String configFilePath = runTimePath + File.separator + "config" + File.separator + Constants.configFileName;
+                in = new FileInputStream(new File(configFilePath));
                 prop.load(in);
                 log.info("loading {} config file finish ...", Constants.configFileName);
             }

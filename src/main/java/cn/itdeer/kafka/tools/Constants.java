@@ -1,11 +1,11 @@
 package cn.itdeer.kafka.tools;
 
+import com.alibaba.fastjson.JSONArray;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Description : 加载运行配置设置为常量
@@ -26,46 +26,7 @@ public class Constants {
     /**
      * 参数默认值
      */
-    public static String THREAD_NUMBER = Integer.toString(1);
-    public static String SINGLE_THREAD_SEND_DATA = ResolverConfig.getValueByKey("SINGLE_THREAD_SEND_DATA") != null ? ResolverConfig.getValueByKey("SINGLE_THREAD_SEND_DATA") : Integer.toString(10000);
-    public static Map<String, String> TOPIC_NAME_AND_THREADS = ResolverConfig();
-
-
-    /**
-     * 解析Topic名称个具体执行的线程数
-     *
-     * @return
-     */
-    private static Map ResolverConfig() {
-        Map<String, String> map = new HashMap<>();
-        try {
-
-            String tn_and_t = ResolverConfig.getValueByKey("TOPIC_NAME_AND_THREADS");
-            if (!tn_and_t.endsWith(",")) {
-                tn_and_t = tn_and_t + ",";
-            }
-            String[] tn_and_ts = tn_and_t.split("],");
-
-            for (int i = 0; i < tn_and_ts.length; i++) {
-                String topic = tn_and_ts[i].substring(1);
-
-                String thread = THREAD_NUMBER;
-                String single_data = SINGLE_THREAD_SEND_DATA;
-
-                try {
-                    thread = topic.split(",")[1];
-                    single_data = topic.split(",")[2];
-                } catch (Exception e) {
-                }
-
-                map.put(topic.split(",")[0], thread + "_" + single_data);
-            }
-            log.info("resolver config message finish");
-        } catch (Exception e) {
-            log.error("resolver config message appear exception: " + e.getStackTrace());
-        }
-        return map;
-    }
+    public static List<Message> TOPIC_DATA_MESSAGE = JSONArray.parseArray(ResolverConfig.getValueByKey("TOPIC_DATA_MESSAGE"), Message.class);
 
 
     /**

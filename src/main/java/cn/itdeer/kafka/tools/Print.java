@@ -5,7 +5,7 @@ package cn.itdeer.kafka.tools;
  * PackageName : cn.itdeer.kafka.tools
  * ProjectName : DataToKafka
  * CreatorName : itdeer.cn
- * CreateTime : 2019/7/9/15:28
+ * CreateTime : 2019/8/19/11:27
  */
 public class Print {
 
