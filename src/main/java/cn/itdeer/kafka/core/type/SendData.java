@@ -422,6 +422,7 @@ public class SendData {
                         }
                     }
                 }
+                value = value.substring(0, value.lastIndexOf(separator));
                 list.add(value);
             }
 
