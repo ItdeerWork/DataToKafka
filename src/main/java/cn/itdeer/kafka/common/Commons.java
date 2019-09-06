@@ -21,11 +21,11 @@ public class Commons {
     private Integer intFieldDefaultMax = 10000;                         // 表示int最大取值范围
 
     private String doubleFieldDefaultFormat = "#0.0000";                // 表示保留的小数点位数
-    private Integer doubleFieldDefaultMin = 0;                          // 表示double最小取值范围
-    private Integer doubleFieldDefaultMax = 10000;                      // 表示double最大取值范围
+    private Double doubleFieldDefaultMin = 0.0;                          // 表示double最小取值范围
+    private Double doubleFieldDefaultMax = 10000.0;                      // 表示double最大取值范围
     private String floatFieldDefaultFormat = "#0.00";                   // 表示保留的小数点位数
-    private Integer floatFieldDefaultMin = 0;                           // 表示float最小取值范围
-    private Integer floatFieldDefaultMax = 10000;                       // 表示float最大取值范围
+    private Float floatFieldDefaultMin = 0.0f;                           // 表示float最小取值范围
+    private Float floatFieldDefaultMax = 10000.0f;                       // 表示float最大取值范围
 
     private String dateFieldDefaultStartPoint = "now";                  // 表示开始时间
     private String dateFieldDefaultFormat = "yyyy-MM-dd HH:mm:ss";      // 表示时间格式

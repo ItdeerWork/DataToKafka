@@ -109,17 +109,17 @@ public class SendData {
          * 初始化Double类型字段实例
          */
         if (data_type.contains(Constants.DOUBLE)) {
-            int number;
+            Double number;
             if (data_type.length() == Constants.DOUBLE.length()) {
                 living.put(data_type, new DoubleField());
             }
             if (data_type.contains(Constants.COMMA)) {
                 String parameters = data_type.substring(7, data_type.length() - 1);
                 String[] par = parameters.split(Constants.COMMA);
-                living.put(data_type, new DoubleField(Integer.parseInt(par[0]), Integer.parseInt(par[1])));
+                living.put(data_type, new DoubleField(Double.parseDouble(par[0]), Double.parseDouble(par[1])));
             }
             if (!data_type.contains(Constants.COMMA) && data_type.length() > Constants.DOUBLE.length()) {
-                number = Integer.parseInt(data_type.substring(7, data_type.length() - 1));
+                number = Double.parseDouble(data_type.substring(7, data_type.length() - 1));
                 living.put(data_type, new DoubleField(number));
             }
         }
@@ -128,17 +128,17 @@ public class SendData {
          * 初始化Float类型字段实例
          */
         if (data_type.contains(Constants.FLOAT)) {
-            int number;
+            float number;
             if (data_type.length() == Constants.FLOAT.length()) {
                 living.put(data_type, new FloatField());
             }
             if (data_type.contains(Constants.COMMA)) {
                 String parameters = data_type.substring(6, data_type.length() - 1);
                 String[] par = parameters.split(Constants.COMMA);
-                living.put(data_type, new FloatField(Integer.parseInt(par[0]), Integer.parseInt(par[1])));
+                living.put(data_type, new FloatField(Float.parseFloat(par[0]), Float.parseFloat(par[1])));
             }
             if (!data_type.contains(Constants.COMMA) && data_type.length() > Constants.FLOAT.length()) {
-                number = Integer.parseInt(data_type.substring(6, data_type.length() - 1));
+                number = Float.parseFloat(data_type.substring(6, data_type.length() - 1));
                 living.put(data_type, new FloatField(number));
             }
         }

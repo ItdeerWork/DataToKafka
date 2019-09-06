@@ -17,8 +17,8 @@ public class DoubleField implements FieldInterface {
     /**
      * 默认最小最大值
      */
-    private int min = Constants.DOUBLE_FIELD_DEFAULT_MIN;
-    private int max = Constants.DOUBLE_FIELD_DEFAULT_MAX;
+    private double min = Constants.DOUBLE_FIELD_DEFAULT_MIN;
+    private double max = Constants.DOUBLE_FIELD_DEFAULT_MAX;
 
     private DecimalFormat df = new DecimalFormat(Constants.DOUBLE_FIELD_DEFAULT_FORMAT);
 
@@ -33,7 +33,7 @@ public class DoubleField implements FieldInterface {
      *
      * @param max 最大值
      */
-    public DoubleField(int max) {
+    public DoubleField(double max) {
         this.max = max;
     }
 
@@ -43,7 +43,7 @@ public class DoubleField implements FieldInterface {
      * @param min 最小值
      * @param max 最大值
      */
-    public DoubleField(int min, int max) {
+    public DoubleField(double min, double max) {
         this.min = min;
         this.max = max;
     }

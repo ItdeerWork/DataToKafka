@@ -17,8 +17,8 @@ public class FloatField implements FieldInterface {
     /**
      * 默认最小最大值
      */
-    private int min = Constants.FLOAT_FIELD_DEFAULT_MIN;
-    private int max = Constants.FLOAT_FIELD_DEFAULT_MAX;
+    private float min = Constants.FLOAT_FIELD_DEFAULT_MIN;
+    private float max = Constants.FLOAT_FIELD_DEFAULT_MAX;
 
     private DecimalFormat df = new DecimalFormat(Constants.FLOAT_FIELD_DEFAULT_FORMAT);
 
@@ -33,7 +33,7 @@ public class FloatField implements FieldInterface {
      *
      * @param max 最大值
      */
-    public FloatField(int max) {
+    public FloatField(float max) {
         this.max = max;
     }
 
@@ -43,7 +43,7 @@ public class FloatField implements FieldInterface {
      * @param min 最小值
      * @param max 最大值
      */
-    public FloatField(int min, int max) {
+    public FloatField(float min, float max) {
         this.min = min;
         this.max = max;
     }

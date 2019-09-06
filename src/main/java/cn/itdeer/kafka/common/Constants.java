@@ -40,12 +40,12 @@ public class Constants {
     public static final Integer INT_FIELD_DEFAULT_MAX = InitConfig.getCommons().getIntFieldDefaultMax();
 
     public static final String DOUBLE_FIELD_DEFAULT_FORMAT = InitConfig.getCommons().getDoubleFieldDefaultFormat();
-    public static final Integer DOUBLE_FIELD_DEFAULT_MIN = InitConfig.getCommons().getDoubleFieldDefaultMin();
-    public static final Integer DOUBLE_FIELD_DEFAULT_MAX = InitConfig.getCommons().getDoubleFieldDefaultMax();
+    public static final Double DOUBLE_FIELD_DEFAULT_MIN = InitConfig.getCommons().getDoubleFieldDefaultMin();
+    public static final Double DOUBLE_FIELD_DEFAULT_MAX = InitConfig.getCommons().getDoubleFieldDefaultMax();
 
     public static final String FLOAT_FIELD_DEFAULT_FORMAT = InitConfig.getCommons().getDoubleFieldDefaultFormat();
-    public static final Integer FLOAT_FIELD_DEFAULT_MIN = InitConfig.getCommons().getFloatFieldDefaultMin();
-    public static final Integer FLOAT_FIELD_DEFAULT_MAX = InitConfig.getCommons().getFloatFieldDefaultMax();
+    public static final Float FLOAT_FIELD_DEFAULT_MIN = InitConfig.getCommons().getFloatFieldDefaultMin();
+    public static final Float FLOAT_FIELD_DEFAULT_MAX = InitConfig.getCommons().getFloatFieldDefaultMax();
 
 
     public static final String DATE_FIELD_DEFAULT_START_POINT = InitConfig.getCommons().getDateFieldDefaultStartPoint();
