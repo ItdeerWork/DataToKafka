@@ -1,0 +1,188 @@
+{
+  "kafka": {
+    "bootstrapServers": "192.168.1.220:9092",
+    "acks": 0,
+    "retries": 3,
+    "lingerMs": 100,
+    "batchSize": 102400,
+    "bufferMemory": 33554432,
+    "maxRequestSize": 10485760,
+    "compressionType": "lz4",
+    "requestTimeoutMs": 60000,
+    "maxInFlightRequestsPer": "1",
+    "keySerializer": "org.apache.kafka.common.serialization.StringSerializer",
+    "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer"
+  },
+  "commons": {
+    "stringFieldDefaultLength": 4,
+    "stringFieldDefaultWrite": 2,
+    "booleanFieldDefaultFlag": 0,
+    "intFieldDefaultMin": 0,
+    "intFieldDefaultMax": 10000,
+    "doubleFieldDefaultFormat": "#0.000",
+    "doubleFieldDefaultMin": 0.0,
+    "doubleFieldDefaultMax": 10000.0,
+    "floatFieldDefaultFormat": "#0.00",
+    "floatFieldDefaultMin": "0.0f",
+    "floatFieldDefaultMax": "10000.0f",
+    "dateFieldDefaultStartPoint": "now",
+    "dateFieldDefaultFormat": "yyyy-MM-dd HH:mm:ss"
+  },
+  "message": [
+//    {
+//      "topicName": "itdeer1",
+//      "threads": 1,
+//      "dataNumber": 100000,
+//      "timeFrequency": -1,
+//      "dataMapping": {
+//        "type": "json",
+//        "appoint": "false",
+//        "fields": [
+//          {
+//            "field": "tagName==string(5)"
+//          },
+//          {
+//            "field": "tagValue==double(0,10)"
+//          },
+//          {
+//            "field": "isGood==boolean(0)"
+//          },
+//          {
+//            "field": "sendTS==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "field": "piTS==date(2018-01-30 00:00:00.000,yyyy-MM-dd HH:mm:ss.SSS)"
+//          }
+//        ]
+//      }
+//    },
+//    {
+//      "topicName": "itdeer2",
+//      "threads": 1,
+//      "dataNumber": 100000,
+//      "timeFrequency": -1,
+//      "dataMapping": {
+//        "type": "csv",
+//        "appoint": "false",
+//        "separator": ",",
+//        "fields": [
+//          {
+//            "field": "tagName==string"
+//          },
+//          {
+//            "field": "tagValue==double"
+//          },
+//          {
+//            "field": "isGood==boolean"
+//          },
+//          {
+//            "field": "sendTS==date(2016-01-30 00:00:00,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "field": "piTS==date"
+//          }
+//        ]
+//      }
+//    },
+//    {
+//      "topicName": "itdeer3",
+//      "threads": 1,
+//      "dataNumber": 100000,
+//      "timeFrequency": -1,
+//      "dataMapping": {
+//        "type": "json",
+//        "appoint": "true",
+//        "points": [
+//          {
+//            "point": "tagname==CH4.A4037&&tagvalue==int(0,10)&&isgood==boolean(0)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss.SSS)"
+//          },
+//          {
+//            "point": "tagname==CH4.A4038&&tagvalue==int(10,30)&&isgood==boolean(1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==H2.A00015&&tagvalue==int(30,50)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==H2.A00010&&tagvalue==int(50,80)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==NH3A00008&&tagvalue==int(80,100)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==NH3A00018&&tagvalue==int(100,150)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2331.C800HTA50CQ101&&tagvalue==int(150,200)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2385.C800HTA50CQ101&&tagvalue==int(200,210)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2531.C700HTA50CQ101&&tagvalue==int(250,310)&&isgood==boolean(1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2581.C700HTA50CQ101&&tagvalue==int(310,410)&&isgood==boolean(0)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss.SSS)"
+//          }
+//        ]
+//      }
+//    },
+//    {
+//      "topicName": "itdeer4",
+//      "threads": 1,
+//      "dataNumber": 100000,
+//      "timeFrequency": -1,
+//      "dataMapping": {
+//        "type": "csv",
+//        "appoint": "true",
+//        "separator": ",",
+//        "points": [
+//          {
+//            "point": "tagname==CH4.A4037&&tagvalue==int(0,10)&&isgood==boolean(0)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss.SSS)"
+//          },
+//          {
+//            "point": "tagname==CH4.A4038&&tagvalue==int(10,30)&&isgood==boolean(1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==H2.A00015&&tagvalue==int(30,50)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==H2.A00010&&tagvalue==int(50,80)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==NH3A00008&&tagvalue==int(80,100)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==NH3A00018&&tagvalue==int(100,150)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2331.C800HTA50CQ101&&tagvalue==int(150,200)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2385.C800HTA50CQ101&&tagvalue==int(200,210)&&isgood==boolean(-1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2531.C700HTA50CQ101&&tagvalue==int(250,310)&&isgood==boolean(1)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss)"
+//          },
+//          {
+//            "point": "tagname==2581.C700HTA50CQ101&&tagvalue==int(310,410)&&isgood==boolean(0)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss.SSS)"
+//          }
+//        ]
+//      }
+//    },
+    {
+      "topicName": "itdeer5",
+      "threads": 1,
+      "dataNumber": 100000,
+      "timeFrequency": 500,
+      "dataMapping": {
+        "type": "csv",
+        "appoint": "true",
+        "separator": ",",
+        "pointFile": {
+          "fields": "tagname,tagvalue,isgood,sendts,pits",
+          "fileName": "point.csv"
+        }
+      }
+    }
+  ]
+}

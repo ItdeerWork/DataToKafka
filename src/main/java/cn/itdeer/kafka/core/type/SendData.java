@@ -378,6 +378,7 @@ public class SendData {
 
             for (int i = 0; i < list.size(); i++) {
                 producer.send(new ProducerRecord(topicName, list.get(i)));
+                System.out.println(list.get(i));
             }
             list.clear();
             if (timeFrequency > 0) {
@@ -428,6 +429,7 @@ public class SendData {
 
             for (int i = 0; i < list.size(); i++) {
                 producer.send(new ProducerRecord(topicName, list.get(i)));
+                System.out.println(list.get(i));
             }
             list.clear();
             if (timeFrequency > 0) {

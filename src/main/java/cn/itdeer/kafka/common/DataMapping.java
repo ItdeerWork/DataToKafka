@@ -19,5 +19,6 @@ public class DataMapping {
     private String separator = ",";
     private List<Fields> fields;
     private List<Points> points;
+    private PointFile pointFile;
 
 }

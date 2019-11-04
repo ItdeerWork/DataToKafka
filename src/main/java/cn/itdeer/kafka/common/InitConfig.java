@@ -1,12 +1,14 @@
 package cn.itdeer.kafka.common;
 
 import com.alibaba.fastjson.JSON;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Description : 解析运行配置文件
@@ -57,5 +59,29 @@ public class InitConfig {
      */
     public static Commons getCommons() {
         return cb.getCommons();
+    }
+
+    /**
+     * 读取点位文件
+     */
+    public static List<String> readFilePoin(String fileName) {
+        String path = System.getProperty("user.dir") + File.separator + "config" + File.separator + fileName;
+        List<String> list = new ArrayList<>();
+
+        try (CSVReader csvReader = new CSVReaderBuilder(new BufferedReader(new InputStreamReader(new FileInputStream(new File(path)), "UTF-8"))).build()) {
+            Iterator<String[]> iterator = csvReader.iterator();
+            while (iterator.hasNext()) {
+                String point = "";
+                for (String tmp : iterator.next()) {
+                    point = point.concat(tmp).concat(",");
+                }
+                point = point.substring(0, point.length() - 1);
+                list.add(point);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

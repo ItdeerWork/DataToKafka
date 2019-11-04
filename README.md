@@ -30,6 +30,8 @@ java -jar 在DataToKafka-3.0.0.jar
  - 有些字段可以设置固定值，有些可以设置活动值
  - 等等功能
  
+ - 支持CSV文件配置具体点位及取值范围
+ 
  
 ### 说明
 
@@ -213,6 +215,23 @@ java -jar 在DataToKafka-3.0.0.jar
             "point": "tagname==2581.C700HTA50CQ101&&tagvalue==int(310,410)&&isgood==boolean(0)&&sendts==date(now,yyyy-MM-dd HH:mm:ss)&&pits==date(now,yyyy-MM-dd HH:mm:ss.SSS)"
           }
         ]
+      }
+    },
+    
+    {
+      "topicName": "itdeer5",
+      "threads": 1,
+      "dataNumber": 100000,
+      "timeFrequency": 5000,
+      "dataMapping": {
+        "type": "csv",
+        "appoint": "true", //是否指定点位
+        "separator": ",", // 分隔符
+        "pointFile": {      // 点位从文件中获取
+          "fields": "tagname==row_1&&tagvalue==int(row_2,row_3)&&isgood==boolean(0)&&sendts==date&&pits==date", // 点位文件的每一行数据在整体数据中所在位置
+          "mapping": "row_1,row_2,row_3", //点位文件的具体行
+          "fileName": "point.csv"  //点位文件名称
+        }
       }
     }
   ]
@@ -548,7 +567,44 @@ java -jar 在DataToKafka-3.0.0.jar
     参数说明：
         一批要发送的多条数据的配置，每一条数据都可以不一样，针对每一条数据进行特性配置，每次发送是一批数据，所以注意发数总量和线程数的问题
         以上对单个字段进行了描述，这里就不赘述了，按照实例配制即可
-    ```   
+    ```
+       
+ - pointFile
+  
+    ```
+    参数名称： pointFile
+    默认值：
+    参数说明：
+        一批要发送的多条数据的配置，每一条数据都可以不一样，针对每一条数据进行特性配置，每次发送是一批数据，所以注意发数总量和线程数的问题
+        需要配置字段和文件行以及文件名称
+    ```
+    
+ - fields
+  
+    ```
+    参数名称： fields
+    默认值：
+    参数说明：
+        消息模板，指出具体的字段从文件列中来
+    ```  
+
+ - mapping
+  
+    ```
+    参数名称： mapping
+    默认值：
+    参数说明：
+        文件列的具体列
+    ```
+    
+ - fileName
+  
+    ```
+    参数名称： fileName
+    默认值：
+    参数说明：
+        点位数据来源文件，文件名称
+    ```
  
 ### 在本机的测试结果
 
