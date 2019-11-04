@@ -32,7 +32,7 @@
     {
       "topicName": "itdeer5",
       "threads": 1,
-      "dataNumber": 100000,
+      "dataNumber": 0,
       "timeFrequency": 5000,
       "dataMapping": {
         "type": "csv",

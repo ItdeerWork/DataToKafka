@@ -31,6 +31,7 @@ java -jar 在DataToKafka-3.0.0.jar
  - 等等功能
  
  - 支持CSV文件配置具体点位及取值范围
+ - 支持无限发送配置
  
  
 ### 说明
@@ -80,7 +81,7 @@ java -jar 在DataToKafka-3.0.0.jar
     {
       "topicName": "itdeer1",   //主题名称
       "threads": 1,         //启动的线程数
-      "dataNumber": 100000, //发送的数据条数或批数
+      "dataNumber": 100000, //发送的数据条数或批数 为0则为无限发送
       "timeFrequency": -1, //时间间隔
       "dataMapping": {
         "type": "json", //数据格式
@@ -507,9 +508,9 @@ java -jar 在DataToKafka-3.0.0.jar
  
     ```
     参数名称： dataNumber
-    默认值：100000
+    默认值：10000
     参数说明：
-       表示单线程发送的数据条数或批数
+       表示单线程发送的数据条数或批数 若为0则表示无限发送
     ```
 
  - timeFrequency
