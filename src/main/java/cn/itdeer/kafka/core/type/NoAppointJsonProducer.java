@@ -80,6 +80,7 @@ public class NoAppointJsonProducer extends Thread {
         String endDate = Constants.format.format(new Date());
 
         LogPrint.outPrint(startTime, initTime, endTime, startDate, endDate, Thread.currentThread().getName(), totleNumber, topicName);
+        System.exit(0);
     }
 
 

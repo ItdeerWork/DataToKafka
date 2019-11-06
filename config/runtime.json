@@ -1,6 +1,6 @@
 {
   "kafka": {
-    "bootstrapServers": "192.168.1.220:9092",
+    "bootstrapServers": "172.24.4.197:6667,172.24.4.198:6667,172.24.4.199:6667",
     "acks": 0,
     "retries": 3,
     "lingerMs": 100,
@@ -30,19 +30,31 @@
   },
   "message": [
     {
-      "topicName": "itdeer5",
-      "threads": 1,
-      "dataNumber": 0,
-      "timeFrequency": 5000,
+      "topicName": "demo",
+      "threads": 3,
+      "dataNumber": 10,
+      "timeFrequency": -1,
       "dataMapping": {
         "type": "csv",
-        "appoint": "true",
+        "appoint": "false",
         "separator": ",",
-        "pointFile": {
-          "fields": "tagname==row_1&&tagvalue==int(row_2,row_3)&&isgood==boolean(0)&&sendts==date&&pits==date",
-          "mapping": "row_1,row_2,row_3",
-          "fileName": "point.csv"
-        }
+        "fields": [
+          {
+            "field": "tagName==string(8)"
+          },
+          {
+            "field": "tagValue==int(0,10000)"
+          },
+          {
+            "field": "isGood==boolean(0)"
+          },
+          {
+            "field": "sendTS==date"
+          },
+          {
+            "field": "piTS==date"
+          }
+        ]
       }
     }
   ]

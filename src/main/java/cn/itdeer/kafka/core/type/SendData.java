@@ -308,9 +308,6 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-//            if (dataNumber != 0) {
-//                dataNumber--;
-//            }
             dataNumber--;
         }
         return true;
@@ -342,9 +339,6 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-//            if (dataNumber != 0) {
-//                dataNumber--;
-//            }
             dataNumber--;
         }
         return true;
@@ -393,9 +387,6 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-//            if (dataNumber != 0) {
-//                dataNumber--;
-//            }
             dataNumber--;
         }
         return true;
@@ -446,9 +437,6 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-//            if (dataNumber != 0) {
-//                dataNumber--;
-//            }
             dataNumber--;
         }
         return true;
