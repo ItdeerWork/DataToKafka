@@ -294,7 +294,7 @@ public class SendData {
      */
     public Boolean sendJsonData(Integer dataNumber, Integer timeFrequency, String topicName, Map<String, Object> map, KafkaProducer<String, String> producer) {
         Map<String, Object> value = new LinkedHashMap<>();
-        while (dataNumber >= 0) {
+        while (dataNumber > 0) {
             for (String key : map.keySet()) {
                 value.put(key, ((FieldInterface) map.get(key)).getValue());
             }
@@ -308,9 +308,10 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-            if (dataNumber != 0) {
-                dataNumber--;
-            }
+//            if (dataNumber != 0) {
+//                dataNumber--;
+//            }
+            dataNumber--;
         }
         return true;
     }
@@ -327,7 +328,7 @@ public class SendData {
      * @return 是否发送完毕状态
      */
     public Boolean sendCsvData(int dataNumber, int timeFrequency, String topicName, String separator, Map<String, Object> map, KafkaProducer<String, String> producer) {
-        while (dataNumber >= 0) {
+        while (dataNumber > 0) {
             String message = "";
             for (String key : map.keySet()) {
                 message = message + ((FieldInterface) map.get(key)).getValue() + separator;
@@ -341,9 +342,10 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-            if (dataNumber != 0) {
-                dataNumber--;
-            }
+//            if (dataNumber != 0) {
+//                dataNumber--;
+//            }
+            dataNumber--;
         }
         return true;
     }
@@ -363,7 +365,7 @@ public class SendData {
 
         List<String> list = new LinkedList<>();
 
-        while (dataNumber >= 0) {
+        while (dataNumber > 0) {
             for (Integer num : map.keySet()) {
                 List<Map<String, Object>> ll = map.get(num);
                 Map<String, Object> value = new LinkedHashMap<>();
@@ -391,9 +393,10 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-            if (dataNumber != 0) {
-                dataNumber--;
-            }
+//            if (dataNumber != 0) {
+//                dataNumber--;
+//            }
+            dataNumber--;
         }
         return true;
     }
@@ -414,7 +417,7 @@ public class SendData {
 
         List<String> list = new LinkedList<>();
 
-        while (dataNumber >= 0) {
+        while (dataNumber > 0) {
             for (Integer num : map.keySet()) {
                 List<Map<String, Object>> ll = map.get(num);
                 String value = "";
@@ -443,9 +446,10 @@ public class SendData {
                     log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
                 }
             }
-            if (dataNumber != 0) {
-                dataNumber--;
-            }
+//            if (dataNumber != 0) {
+//                dataNumber--;
+//            }
+            dataNumber--;
         }
         return true;
     }
