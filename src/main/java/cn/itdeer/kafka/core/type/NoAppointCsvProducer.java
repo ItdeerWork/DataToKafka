@@ -30,7 +30,7 @@ public class NoAppointCsvProducer extends Thread {
      * 基本信息
      */
     private String topicName;
-    private int dataNumber;
+    private long dataNumber;
     private int timeFrequency;
 
     /**
@@ -56,7 +56,7 @@ public class NoAppointCsvProducer extends Thread {
     public void run() {
         long startTime = System.currentTimeMillis();
         String startDate = Constants.format.format(new Date());
-        int totleNumber = dataNumber;
+        Long totleNumber = dataNumber;
 
         /**
          * 初始化

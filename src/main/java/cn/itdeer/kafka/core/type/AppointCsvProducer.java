@@ -29,7 +29,7 @@ public class AppointCsvProducer extends Thread {
      * 基本信息
      */
     private String topicName;
-    private int dataNumber;
+    private long dataNumber;
     private int timeFrequency;
 
     /**
@@ -59,7 +59,7 @@ public class AppointCsvProducer extends Thread {
     public void run() {
         long startTime = System.currentTimeMillis();
         String startDate = Constants.format.format(new Date());
-        int totleNumber = dataNumber;
+        long totleNumber = dataNumber;
 
         /**
          * 初始化

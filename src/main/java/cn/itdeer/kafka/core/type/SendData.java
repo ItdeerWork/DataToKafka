@@ -292,7 +292,7 @@ public class SendData {
      * @param producer      生成这对象
      * @return 是否发送完毕状态
      */
-    public Boolean sendJsonData(Integer dataNumber, Integer timeFrequency, String topicName, Map<String, Object> map, KafkaProducer<String, String> producer) {
+    public Boolean sendJsonData(long dataNumber, Integer timeFrequency, String topicName, Map<String, Object> map, KafkaProducer<String, String> producer) {
         Map<String, Object> value = new LinkedHashMap<>();
         while (dataNumber > 0) {
             for (String key : map.keySet()) {
@@ -324,7 +324,7 @@ public class SendData {
      * @param producer      生成这对象
      * @return 是否发送完毕状态
      */
-    public Boolean sendCsvData(int dataNumber, int timeFrequency, String topicName, String separator, Map<String, Object> map, KafkaProducer<String, String> producer) {
+    public Boolean sendCsvData(long dataNumber, int timeFrequency, String topicName, String separator, Map<String, Object> map, KafkaProducer<String, String> producer) {
         while (dataNumber > 0) {
             String message = "";
             for (String key : map.keySet()) {
@@ -355,7 +355,7 @@ public class SendData {
      * @param living        实例集合
      * @return 是否发送完毕状态
      */
-    public Boolean sendAppointJsonData(int dataNumber, int timeFrequency, String topicName, Map<Integer, List<Map<String, Object>>> map, KafkaProducer<String, String> producer, Map<String, Object> living) {
+    public Boolean sendAppointJsonData(long dataNumber, int timeFrequency, String topicName, Map<Integer, List<Map<String, Object>>> map, KafkaProducer<String, String> producer, Map<String, Object> living) {
 
         List<String> list = new LinkedList<>();
 
@@ -404,7 +404,7 @@ public class SendData {
      * @param living        实例集合
      * @return 是否发送完毕状态
      */
-    public Boolean sendAppointCsvData(int dataNumber, int timeFrequency, String topicName, String separator, Map<Integer, List<Map<String, Object>>> map, KafkaProducer<String, String> producer, Map<String, Object> living) {
+    public Boolean sendAppointCsvData(long dataNumber, int timeFrequency, String topicName, String separator, Map<Integer, List<Map<String, Object>>> map, KafkaProducer<String, String> producer, Map<String, Object> living) {
 
         List<String> list = new LinkedList<>();
 

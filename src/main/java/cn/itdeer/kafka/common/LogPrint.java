@@ -19,7 +19,7 @@ public class LogPrint {
      * @param dataNumber 总数据条数
      * @param topicName  主题名称
      */
-    public static void outPrint(long startTime, long initTime, long endTime, String startDate, String endDate, String threadName, Integer dataNumber, String topicName) {
+    public static void outPrint(long startTime, long initTime, long endTime, String startDate, String endDate, String threadName, long dataNumber, String topicName) {
         double totle_time = (endTime - startTime) / 1000;
         double init_time = (initTime - startTime) / 1000;
         double send_time = (endTime - initTime) / 1000;

@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class Close {
 
-    public static void resourceClose(Message message, KafkaProducer<String, String> producer, String topicName, int dataNumber, int timeFrequency, Map<String, Object> living) {
+    public static void resourceClose(Message message, KafkaProducer<String, String> producer, String topicName, long dataNumber, int timeFrequency, Map<String, Object> living) {
         if (message != null) {
             message = null;
         }

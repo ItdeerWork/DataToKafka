@@ -14,7 +14,7 @@ public class Message {
 
     private String topicName;
     private int threads = 1;
-    private int dataNumber = 10000;
+    private long dataNumber = 10000;
     private int timeFrequency = -1;
     private DataMapping dataMapping;
 
