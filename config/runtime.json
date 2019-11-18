@@ -1,6 +1,6 @@
 {
   "kafka": {
-    "bootstrapServers": "172.24.4.197:6667,172.24.4.198:6667,172.24.4.199:6667",
+    "bootstrapServers": "192.168.1.220:9092",
     "acks": 0,
     "retries": 3,
     "lingerMs": 100,
@@ -26,35 +26,28 @@
     "floatFieldDefaultMin": "0.0f",
     "floatFieldDefaultMax": "10000.0f",
     "dateFieldDefaultStartPoint": "now",
-    "dateFieldDefaultFormat": "yyyy-MM-dd HH:mm:ss"
+    "dateFieldDefaultFormat": "yyyy-MM-dd HH:mm:ss",
+    "dateFieldDefaultInterval": 0,
+    "switchingFieldDefaultType": 0,
+    "switchingFieldDefaultMaxValue": 2,
+    "switchingFieldDefaultMinValue": 0
   },
   "message": [
+
     {
-      "topicName": "demo",
-      "threads": 3,
-      "dataNumber": 10000000000,
-      "timeFrequency": -1,
+      "topicName": "itdeer",
+      "threads": 1,
+      "dataNumber": 100000,
+      "timeFrequency": 50,
       "dataMapping": {
         "type": "csv",
-        "appoint": "false",
+        "appoint": "true",
         "separator": ",",
-        "fields": [
-          {
-            "field": "tagName==string(8)"
-          },
-          {
-            "field": "tagValue==int(0,10000)"
-          },
-          {
-            "field": "isGood==boolean(0)"
-          },
-          {
-            "field": "sendTS==date"
-          },
-          {
-            "field": "piTS==date"
-          }
-        ]
+        "pointFile": {
+          "fields": "tagname==row_1&&tagvalue==int(row_2,row_3)&&isgood==boolean(0)&&sendts==date(2018-01-30 00:00:00,yyyy-MM-dd HH:mm:ss,2000)&&pits==date&&sw==switching(0)",
+          "mapping": "row_1,row_2,row_3",
+          "fileName": "point.csv"
+        }
       }
     }
   ]

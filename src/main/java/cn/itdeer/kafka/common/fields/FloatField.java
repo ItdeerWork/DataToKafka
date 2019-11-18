@@ -1,6 +1,6 @@
-package cn.itdeer.kafka.core.fields;
+package cn.itdeer.kafka.common.fields;
 
-import cn.itdeer.kafka.common.Constants;
+import cn.itdeer.kafka.common.config.Constants;
 
 import java.text.DecimalFormat;
 import java.util.Random;
@@ -12,6 +12,7 @@ import java.util.Random;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/8/28/0:21
  */
+
 public class FloatField implements FieldInterface {
 
     /**

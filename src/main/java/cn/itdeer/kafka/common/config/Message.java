@@ -1,4 +1,4 @@
-package cn.itdeer.kafka.common;
+package cn.itdeer.kafka.common.config;
 
 import lombok.Data;
 
@@ -9,6 +9,7 @@ import lombok.Data;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/8/27/10:05
  */
+
 @Data
 public class Message {
 

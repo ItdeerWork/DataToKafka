@@ -1,4 +1,4 @@
-package cn.itdeer.kafka.core.fields;
+package cn.itdeer.kafka.common.fields;
 
 /**
  * Description : 字段接口
@@ -7,6 +7,7 @@ package cn.itdeer.kafka.core.fields;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/8/27/10:33
  */
+
 public interface FieldInterface {
 
     /**
@@ -15,4 +16,5 @@ public interface FieldInterface {
      * @return
      */
     Object getValue();
+
 }

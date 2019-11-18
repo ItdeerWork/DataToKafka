@@ -1,23 +1,28 @@
 package cn.itdeer.kafka.core.type;
 
-import cn.itdeer.kafka.common.Constants;
-import cn.itdeer.kafka.common.LogPrint;
-import cn.itdeer.kafka.common.Message;
-import cn.itdeer.kafka.core.control.Close;
+import cn.itdeer.kafka.common.config.Constants;
+import cn.itdeer.kafka.common.config.Message;
+import cn.itdeer.kafka.common.fields.FieldInterface;
+import cn.itdeer.kafka.common.init.InitMessage;
+import cn.itdeer.kafka.common.log.LogPrint;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
 /**
- * Description : 生成JSON格式数据
+ * Description : 随机生成JSON格式数据
  * PackageName : cn.itdeer.kafka.core.type
  * ProjectName : DataToKafka
  * CreatorName : itdeer.cn
  * CreateTime : 2019/8/25/23:51
  */
+
 @Slf4j
 public class NoAppointJsonProducer extends Thread {
 
@@ -35,11 +40,17 @@ public class NoAppointJsonProducer extends Thread {
     private int timeFrequency;
 
     /**
+     * 发数值生成实例
+     */
+    private Map<String, Object> map;
+
+    /**
      * 构造函数
      *
      * @param message 配置信息
      */
-    public NoAppointJsonProducer(Message message, KafkaProducer<String, String> producer) {
+    public NoAppointJsonProducer(Message message, KafkaProducer<String, String> producer, String threadName) {
+        super(threadName);
         this.message = message;
         this.producer = producer;
 
@@ -47,7 +58,6 @@ public class NoAppointJsonProducer extends Thread {
         dataNumber = message.getDataNumber();
         timeFrequency = message.getTimeFrequency();
 
-        addShutdownHook();
     }
 
     /**
@@ -55,44 +65,69 @@ public class NoAppointJsonProducer extends Thread {
      */
     @Override
     public void run() {
+
+        /**
+         * 开始时间
+         */
         long startTime = System.currentTimeMillis();
         String startDate = Constants.format.format(new Date());
         long totleNumber = dataNumber;
+        log.info("Random generation JOSN format data sending start time is [{}]", startDate);
 
         /**
-         * 初始化
+         * 初始化数据值获取实例
          */
-        SendData sd = new SendData();
-        Map<String, Object> map = sd.initFields(message.getDataMapping().getFields());
+        map = new InitMessage().initFieldsInstance(message.getDataMapping().getFields());
         if (map.size() == 0)
             return;
-        long initTime = System.currentTimeMillis();
+        log.info("Randomly generate JOSN format data initialization values to get instances");
 
         /**
          * 发数
          */
-        Boolean ifFinsh = sd.sendJsonData(dataNumber, timeFrequency, topicName, map, producer);
+        Boolean ifFinsh = sendData();
         if (ifFinsh) {
             producer.flush();
         }
+        log.info("Random generation of JOSN format data is completed");
 
+        /**
+         * 结束时间
+         */
         long endTime = System.currentTimeMillis();
         String endDate = Constants.format.format(new Date());
+        log.info("Random generation JOSN format data sending completion end time [{}]", endDate);
 
-        LogPrint.outPrint(startTime, initTime, endTime, startDate, endDate, Thread.currentThread().getName(), totleNumber, topicName);
+        /**
+         * 输出发数信息
+         */
+        LogPrint.outPrint(startTime, endTime, startDate, endDate, Thread.currentThread().getName(), totleNumber, topicName);
     }
 
-
     /**
-     * 注册一个停止运行的资源清理任务(钩子程序)
+     * 发送数据
+     *
+     * @return 发送完成状态
      */
-    private void addShutdownHook() {
-        log.info("Register hooks in initProducer to turn off and recycle resources");
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                Close.resourceClose(message, producer, topicName, dataNumber, timeFrequency, null);
+    private Boolean sendData() {
+        Map<String, Object> value = new LinkedHashMap<>();
+        while (dataNumber > 0) {
+            for (String key : map.keySet()) {
+                value.put(key, ((FieldInterface) map.get(key)).getValue());
             }
-        });
+            String message = JSONObject.toJSONString(value);
+            producer.send(new ProducerRecord(topicName, message));
+            value.clear();
+            if (timeFrequency > 0) {
+                try {
+                    Thread.sleep(timeFrequency);
+                } catch (Exception e) {
+                    log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
+                }
+            }
+            dataNumber--;
+        }
+        return true;
     }
 
 }

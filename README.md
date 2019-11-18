@@ -97,7 +97,7 @@ java -jar 在DataToKafka-3.0.0.jar
             "field": "isGood==boolean(0)" //字段名称为 isGood 类型为boolean 取值方式不设置则使用默认值 0 表示随机true或false
           },
           {
-            "field": "sendTS==date(now,yyyy-MM-dd HH:mm:ss)" //字段名称为 sendTS 类型为date 起始值为当前时间，时间格式为yyyy-MM-dd HH:mm:ss
+            "field": "sendTS==date(now,yyyy-MM-dd HH:mm:ss,1000)" //字段名称为 sendTS 类型为date 起始值为当前时间，时间格式为yyyy-MM-dd HH:mm:ss 最后的参数为生成的时间值与上一个值直接的间隔
           },
           {
             "field": "piTS==date(2018-01-30 00:00:00.000,yyyy-MM-dd HH:mm:ss.SSS)" //字段名称为 piTS 类型为date 起始值为指定时间点（2018-01-30 00:00:00.000）格式要和后面的格式保持一致，时间格式为yyyy-MM-dd HH:mm:ss.SSS

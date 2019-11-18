@@ -1,11 +1,13 @@
 package cn.itdeer.kafka.core.type;
 
-import cn.itdeer.kafka.common.Constants;
-import cn.itdeer.kafka.common.LogPrint;
-import cn.itdeer.kafka.common.Message;
-import cn.itdeer.kafka.core.control.Close;
+import cn.itdeer.kafka.common.config.Constants;
+import cn.itdeer.kafka.common.config.Message;
+import cn.itdeer.kafka.common.fields.FieldInterface;
+import cn.itdeer.kafka.common.init.InitMessage;
+import cn.itdeer.kafka.common.log.LogPrint;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.*;
 
@@ -16,6 +18,7 @@ import java.util.*;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/8/28/8:35
  */
+
 @Slf4j
 public class AppointCsvProducer extends Thread {
 
@@ -31,69 +34,118 @@ public class AppointCsvProducer extends Thread {
     private String topicName;
     private long dataNumber;
     private int timeFrequency;
+    private String separator;
 
     /**
      * 数据中转集合
      */
     private Map<String, Object> living;
+    private Map<Integer, List<Map<String, Object>>> map;
 
     /**
      * 构造函数
      *
      * @param message 配置信息
      */
-    public AppointCsvProducer(Message message, KafkaProducer<String, String> producer) {
+    public AppointCsvProducer(Message message, KafkaProducer<String, String> producer, String threadName) {
+        super(threadName);
         this.message = message;
         this.producer = producer;
 
         topicName = message.getTopicName();
         dataNumber = message.getDataNumber();
         timeFrequency = message.getTimeFrequency();
+        separator = message.getDataMapping().getSeparator();
 
         living = new HashMap<>();
-
-        addShutdownHook();
     }
 
+    /**
+     * 覆盖线程Run方法
+     */
     @Override
     public void run() {
+
+        /**
+         * 开始时间
+         */
         long startTime = System.currentTimeMillis();
         String startDate = Constants.format.format(new Date());
         long totleNumber = dataNumber;
+        log.info("Generate the start time of sending data in CSV format according to the template [{}]", startDate);
 
         /**
-         * 初始化
+         * 初始化数据值获取实例
          */
-        SendData sd = new SendData();
-        Map<Integer, List<Map<String, Object>>> map = sd.initPoints(message.getDataMapping().getPoints(), living);
+        map = new InitMessage().initPointsInstance(message.getDataMapping().getPoints(), living);
         if (map.size() == 0)
             return;
-        long initTime = System.currentTimeMillis();
+        log.info("Send CSV format data value instance initialization based on template generation");
 
         /**
          * 发数
          */
-        Boolean ifFinsh = sd.sendAppointCsvData(dataNumber, timeFrequency, topicName, message.getDataMapping().getSeparator(), map, producer, living);
+        Boolean ifFinsh = sendData();
         if (ifFinsh) {
             producer.flush();
         }
+        log.info("According to the template generated send CSV format data times completed");
 
+
+        /**
+         * 结束时间
+         */
         long endTime = System.currentTimeMillis();
         String endDate = Constants.format.format(new Date());
+        log.info("End time to send CSV format data based on template generation [{}]", endDate);
 
-        LogPrint.outPrint(startTime, initTime, endTime, startDate, endDate, Thread.currentThread().getName(), totleNumber, topicName);
+
+        /**
+         * 输出发数信息
+         */
+        LogPrint.outPrint(startTime, endTime, startDate, endDate, Thread.currentThread().getName(), totleNumber, topicName);
     }
 
     /**
-     * 注册一个停止运行的资源清理任务(钩子程序)
+     * 发送数据
+     *
+     * @return 发送完成状态
      */
-    private void addShutdownHook() {
-        log.info("Register hooks in initProducer to turn off and recycle resources");
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                Close.resourceClose(message, producer, topicName, dataNumber, timeFrequency, living);
+    private Boolean sendData() {
+        List<String> list = new LinkedList<>();
+
+        while (dataNumber > 0) {
+            for (Integer num : map.keySet()) {
+                List<Map<String, Object>> ll = map.get(num);
+                String value = "";
+                for (Map<String, Object> mm : ll) {
+                    for (String key : mm.keySet()) {
+                        if (living.containsKey(mm.get(key))) {
+                            Object tmp = ((FieldInterface) living.get(mm.get(key))).getValue();
+                            value = value + tmp + separator;
+                        } else {
+                            value = value + mm.get(key) + separator;
+                        }
+                    }
+                }
+                value = value.substring(0, value.lastIndexOf(separator));
+                list.add(value);
             }
-        });
+
+            for (int i = 0; i < list.size(); i++) {
+                producer.send(new ProducerRecord(topicName, list.get(i)));
+            }
+            list.clear();
+            if (timeFrequency > 0) {
+                try {
+                    Thread.sleep(timeFrequency);
+                } catch (Exception e) {
+                    log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
+                }
+            }
+            dataNumber--;
+        }
+        return true;
     }
 
 }

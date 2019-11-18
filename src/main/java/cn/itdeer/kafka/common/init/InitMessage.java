@@ -1,34 +1,30 @@
-package cn.itdeer.kafka.core.type;
+package cn.itdeer.kafka.common.init;
 
-import cn.itdeer.kafka.common.Constants;
-import cn.itdeer.kafka.common.Fields;
-import cn.itdeer.kafka.common.Points;
-import cn.itdeer.kafka.core.fields.*;
-import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import cn.itdeer.kafka.common.config.Constants;
+import cn.itdeer.kafka.common.config.Fields;
+import cn.itdeer.kafka.common.config.Points;
+import cn.itdeer.kafka.common.fields.*;
 
 import java.util.*;
 
 /**
- * Description : 初始化及发送数据
- * PackageName : cn.itdeer.kafka.core.type
+ * Description : 初始化消息值的获取实例
+ * PackageName : cn.itdeer.kafka.common.init
  * ProjectName : DataToKafka
  * CreatorName : itdeer.cn
- * CreateTime : 2019/8/29/11:39
+ * CreateTime : 2019/11/17/0:08
  */
-@Slf4j
-public class SendData {
+
+public class InitMessage {
 
     /**
-     * 初始化Points资源
+     * 初始化Points类型发数值实例资源
      *
      * @param points Points列表
      * @param living 实例存储集合
      * @return Point集合
      */
-    public Map<Integer, List<Map<String, Object>>> initPoints(List<Points> points, Map<String, Object> living) {
+    public Map<Integer, List<Map<String, Object>>> initPointsInstance(List<Points> points, Map<String, Object> living) {
         Map<Integer, List<Map<String, Object>>> map = new LinkedHashMap<>();
         int number = 0;
         /**
@@ -153,22 +149,40 @@ public class SendData {
             if (data_type.contains(Constants.COMMA)) {
                 String parameters = data_type.substring(5, data_type.length() - 1);
                 String[] par = parameters.split(Constants.COMMA);
-                living.put(data_type, new DateField(par[0], par[1]));
+                if (par.length == 3) {
+                    living.put(data_type, new DateField(par[0], par[1], Integer.parseInt(par[2])));
+                } else {
+                    living.put(data_type, new DateField(par[0], par[1]));
+                }
             }
             if (!data_type.contains(Constants.COMMA) && data_type.length() > Constants.DATE.length()) {
                 String format = data_type.substring(5, data_type.length() - 1);
                 living.put(data_type, new DateField(format));
             }
         }
+
+        /**
+         * 初始化Switching类型字段实例
+         */
+        if (data_type.contains(Constants.SWITCHING)) {
+            if (data_type.length() == Constants.SWITCHING.length()) {
+                living.put(data_type, new SwitchingField());
+            }
+            if (!data_type.contains(Constants.COMMA) && data_type.length() > Constants.DATE.length()) {
+                String type = data_type.substring(10, data_type.length() - 1);
+                living.put(data_type, new SwitchingField(Integer.parseInt(type)));
+            }
+        }
+
     }
 
     /**
-     * 初始化Fields资源
+     * 初始化Fields类型发数值实例资源
      *
      * @param fields Fields列表
      * @return 实例集合
      */
-    public Map<String, Object> initFields(List<Fields> fields) {
+    public Map<String, Object> initFieldsInstance(List<Fields> fields) {
         Map<String, Object> map = new LinkedHashMap<>();
 
         /**
@@ -271,174 +285,33 @@ public class SendData {
                 if (data_type.contains(Constants.COMMA)) {
                     String parameters = data_type.substring(5, data_type.length() - 1);
                     String[] par = parameters.split(Constants.COMMA);
-                    map.put(field_tmp[0], new DateField(par[0], par[1]));
+                    if (par.length == 3) {
+                        map.put(field_tmp[0], new DateField(par[0], par[1], Integer.parseInt(par[2])));
+                    } else {
+                        map.put(field_tmp[0], new DateField(par[0], par[1]));
+                    }
                 }
                 if (!data_type.contains(Constants.COMMA) && data_type.length() > Constants.DATE.length()) {
                     String format = data_type.substring(5, data_type.length() - 1);
                     map.put(field_tmp[0], new DateField(format));
                 }
             }
+
+            /**
+             * 初始化Switching类型字段实例
+             */
+            if (data_type.contains(Constants.SWITCHING)) {
+                if (data_type.length() == Constants.SWITCHING.length()) {
+                    map.put(field_tmp[0], new SwitchingField());
+                }
+                if (!data_type.contains(Constants.COMMA) && data_type.length() > Constants.DATE.length()) {
+                    String type = data_type.substring(10, data_type.length() - 1);
+                    map.put(field_tmp[0], new SwitchingField(Integer.parseInt(type)));
+                }
+            }
+
         }
         return map;
     }
 
-    /**
-     * 发送JSON数据
-     *
-     * @param dataNumber    发送数据量
-     * @param timeFrequency 时间间隔
-     * @param topicName     主题名称
-     * @param map           实例集合
-     * @param producer      生成这对象
-     * @return 是否发送完毕状态
-     */
-    public Boolean sendJsonData(long dataNumber, Integer timeFrequency, String topicName, Map<String, Object> map, KafkaProducer<String, String> producer) {
-        Map<String, Object> value = new LinkedHashMap<>();
-        while (dataNumber > 0) {
-            for (String key : map.keySet()) {
-                value.put(key, ((FieldInterface) map.get(key)).getValue());
-            }
-            String message = JSONObject.toJSONString(value);
-            producer.send(new ProducerRecord(topicName, message));
-            value.clear();
-            if (timeFrequency > 0) {
-                try {
-                    Thread.sleep(timeFrequency);
-                } catch (Exception e) {
-                    log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
-                }
-            }
-            dataNumber--;
-        }
-        return true;
-    }
-
-    /**
-     * 发送CSV数据
-     *
-     * @param dataNumber    发送数据量
-     * @param timeFrequency 时间间隔
-     * @param topicName     主题名称
-     * @param separator     分隔符
-     * @param map           实例集合
-     * @param producer      生成这对象
-     * @return 是否发送完毕状态
-     */
-    public Boolean sendCsvData(long dataNumber, int timeFrequency, String topicName, String separator, Map<String, Object> map, KafkaProducer<String, String> producer) {
-        while (dataNumber > 0) {
-            String message = "";
-            for (String key : map.keySet()) {
-                message = message + ((FieldInterface) map.get(key)).getValue() + separator;
-            }
-            message = message.substring(0, message.lastIndexOf(separator));
-            producer.send(new ProducerRecord(topicName, message));
-            if (timeFrequency > 0) {
-                try {
-                    Thread.sleep(timeFrequency);
-                } catch (Exception e) {
-                    log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
-                }
-            }
-            dataNumber--;
-        }
-        return true;
-    }
-
-    /**
-     * 发送指定模板的JSON格式数据
-     *
-     * @param dataNumber    发送数据量
-     * @param timeFrequency 时间间隔
-     * @param topicName     主题名称
-     * @param map           模板集合
-     * @param producer      生成这对象
-     * @param living        实例集合
-     * @return 是否发送完毕状态
-     */
-    public Boolean sendAppointJsonData(long dataNumber, int timeFrequency, String topicName, Map<Integer, List<Map<String, Object>>> map, KafkaProducer<String, String> producer, Map<String, Object> living) {
-
-        List<String> list = new LinkedList<>();
-
-        while (dataNumber > 0) {
-            for (Integer num : map.keySet()) {
-                List<Map<String, Object>> ll = map.get(num);
-                Map<String, Object> value = new LinkedHashMap<>();
-                for (Map<String, Object> mm : ll) {
-                    for (String key : mm.keySet()) {
-                        if (living.containsKey(mm.get(key))) {
-                            Object tmp = ((FieldInterface) living.get(mm.get(key))).getValue();
-                            value.put(key, tmp);
-                        } else {
-                            value.put(key, mm.get(key));
-                        }
-                    }
-                }
-                list.add(JSONObject.toJSONString(value));
-            }
-
-            for (int i = 0; i < list.size(); i++) {
-                producer.send(new ProducerRecord(topicName, list.get(i)));
-            }
-            list.clear();
-            if (timeFrequency > 0) {
-                try {
-                    Thread.sleep(timeFrequency);
-                } catch (Exception e) {
-                    log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
-                }
-            }
-            dataNumber--;
-        }
-        return true;
-    }
-
-    /**
-     * 发送指定模板的CSV格式数据
-     *
-     * @param dataNumber    发送数据量
-     * @param timeFrequency 时间间隔
-     * @param topicName     主题名称
-     * @param separator     分隔符
-     * @param map           模板集合
-     * @param producer      生成这对象
-     * @param living        实例集合
-     * @return 是否发送完毕状态
-     */
-    public Boolean sendAppointCsvData(long dataNumber, int timeFrequency, String topicName, String separator, Map<Integer, List<Map<String, Object>>> map, KafkaProducer<String, String> producer, Map<String, Object> living) {
-
-        List<String> list = new LinkedList<>();
-
-        while (dataNumber > 0) {
-            for (Integer num : map.keySet()) {
-                List<Map<String, Object>> ll = map.get(num);
-                String value = "";
-                for (Map<String, Object> mm : ll) {
-                    for (String key : mm.keySet()) {
-                        if (living.containsKey(mm.get(key))) {
-                            Object tmp = ((FieldInterface) living.get(mm.get(key))).getValue();
-                            value = value + tmp + separator;
-                        } else {
-                            value = value + mm.get(key) + separator;
-                        }
-                    }
-                }
-                value = value.substring(0, value.lastIndexOf(separator));
-                list.add(value);
-            }
-
-            for (int i = 0; i < list.size(); i++) {
-                producer.send(new ProducerRecord(topicName, list.get(i)));
-            }
-            list.clear();
-            if (timeFrequency > 0) {
-                try {
-                    Thread.sleep(timeFrequency);
-                } catch (Exception e) {
-                    log.error("When sending JSON format data for topic [{}], the thread has an interrupt exception. The exception information is as follows: [{}]", topicName, e.getStackTrace());
-                }
-            }
-            dataNumber--;
-        }
-        return true;
-    }
 }

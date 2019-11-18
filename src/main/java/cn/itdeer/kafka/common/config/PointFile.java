@@ -1,4 +1,4 @@
-package cn.itdeer.kafka.common;
+package cn.itdeer.kafka.common.config;
 
 import lombok.Data;
 
@@ -12,6 +12,7 @@ import lombok.Data;
 
 @Data
 public class PointFile {
+
     private String fields;
     private String mapping;
     private String fileName;

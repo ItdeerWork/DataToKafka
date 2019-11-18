@@ -1,4 +1,4 @@
-package cn.itdeer.kafka.common;
+package cn.itdeer.kafka.common.config;
 
 import lombok.Data;
 
@@ -9,6 +9,7 @@ import lombok.Data;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/8/27/14:58
  */
+
 @Data
 public class Commons {
 
@@ -29,5 +30,10 @@ public class Commons {
 
     private String dateFieldDefaultStartPoint = "now";                  // 表示开始时间
     private String dateFieldDefaultFormat = "yyyy-MM-dd HH:mm:ss";      // 表示时间格式
+    private Integer dateFieldDefaultInterval = 0;                       // 表示时间格式,单位为毫秒值
+
+    private Integer switchingFieldDefaultType = 0;                       // 表示开关量的变换类型  -1表示只返回0值 0表示随机时间内返回0或者1 1表示值返回1 大于1的值表示指定时间内变换一次
+    private Integer switchingFieldDefaultMaxValue = 100;                 // 表示开关量随机变化的时间段最大值
+    private Integer switchingFieldDefaultMinValue = 0;                   // 表示开关量随机变化的时间段最小值
 
 }

@@ -1,6 +1,6 @@
-package cn.itdeer.kafka.core.fields;
+package cn.itdeer.kafka.common.fields;
 
-import cn.itdeer.kafka.common.Constants;
+import cn.itdeer.kafka.common.config.Constants;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +13,7 @@ import java.util.Date;
  * CreatorName : itdeer.cn
  * CreateTime : 2019/8/28/0:33
  */
+
 @Slf4j
 public class DateField implements FieldInterface {
 
@@ -20,10 +21,16 @@ public class DateField implements FieldInterface {
      * 开始时间点
      */
     private String startPoint = Constants.DATE_FIELD_DEFAULT_START_POINT;
+
     /**
      * 时间格式
      */
     private String format = Constants.DATE_FIELD_DEFAULT_FORMAT;
+
+    /**
+     * 生成时间数据的时间间隔
+     */
+    private int interval = Constants.DATE_FIELD_DEFAULT_INTERVAL;
 
     /**
      * 时间格式化对象
@@ -65,6 +72,19 @@ public class DateField implements FieldInterface {
     }
 
     /**
+     * 三个参数构造函数
+     *
+     * @param startPoint
+     * @param format
+     */
+    public DateField(String startPoint, String format, int interval) {
+        this.startPoint = startPoint;
+        this.format = format;
+        this.interval = interval;
+        init();
+    }
+
+    /**
      * 初始化参数值
      */
     private void init() {
@@ -87,6 +107,7 @@ public class DateField implements FieldInterface {
      */
     @Override
     public Object getValue() {
-        return leadTime > 0 ? sdf.format(new Date().getTime() - leadTime) : sdf.format(new Date());
+        leadTime = leadTime - interval;
+        return sdf.format(new Date().getTime() - leadTime);
     }
 }

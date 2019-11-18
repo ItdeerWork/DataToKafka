@@ -1,6 +1,6 @@
-package cn.itdeer.kafka.core.fields;
+package cn.itdeer.kafka.common.fields;
 
-import cn.itdeer.kafka.common.Constants;
+import cn.itdeer.kafka.common.config.Constants;
 
 import java.util.Random;
 
@@ -17,6 +17,7 @@ public class StringField implements FieldInterface {
      * 默认字符串长度
      */
     private int length = Constants.STRING_FIELD_DEFAULT_LENGTH;
+
     /**
      * 默认使用的字符编号
      */
