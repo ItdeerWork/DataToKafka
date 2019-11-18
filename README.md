@@ -101,6 +101,9 @@ java -jar 在DataToKafka-3.0.0.jar
           },
           {
             "field": "piTS==date(2018-01-30 00:00:00.000,yyyy-MM-dd HH:mm:ss.SSS)" //字段名称为 piTS 类型为date 起始值为指定时间点（2018-01-30 00:00:00.000）格式要和后面的格式保持一致，时间格式为yyyy-MM-dd HH:mm:ss.SSS
+          },
+          {
+            "field": "sw==switching(0)" //表示开关量 表示开关量的变换类型  -1表示只返回0值 0表示随机时间内返回0或者1 1表示值返回1 大于1的值表示指定时间内变换一次
           }
         ]
       }
@@ -483,6 +486,43 @@ java -jar 在DataToKafka-3.0.0.jar
     参数说明：
         表示时间格式
     ```  
+    
+ - dateFieldDefaultInterval
+ 
+    ```
+    参数名称： dateFieldDefaultInterval
+    默认值：0
+    参数说明：
+        时间值与上一个时间的间隔
+    ```  
+        
+ - switchingFieldDefaultType
+ 
+    ```
+    参数名称： switchingFieldDefaultType
+    默认值：0
+    参数说明：
+        开关量的类型 
+        表示开关量的变换类型  -1表示只返回0值 0表示随机时间内返回0或者1 1表示值返回1 大于1的值表示指定时间内变换一次
+    ```  
+            
+ - switchingFieldDefaultMaxValue
+ 
+    ```
+    参数名称： switchingFieldDefaultMaxValue
+    默认值：100
+    参数说明：
+        开关量的类型 变换的时间范围最大值
+    ```  
+                
+ - switchingFieldDefaultMinValue
+ 
+    ```
+    参数名称： switchingFieldDefaultMinValue
+    默认值：0
+    参数说明：
+        开关量的类型 变换的时间范围最小值
+    ```                  
   
 [3] message
 
@@ -607,6 +647,138 @@ java -jar 在DataToKafka-3.0.0.jar
         点位数据来源文件，文件名称
     ```
  
+
+### 生成值的数据类型说明
+
+[1] string
+
+    ```
+    示例： 
+        string(8)
+    字符串长度默认值： 
+        stringFieldDefaultLength 4
+    字符串的组成类型默认： 
+        stringFieldDefaultWrite 2
+    参数说明：
+        生成的字符串的长度参数需为正整数
+    组成类型默认说明：
+          生成字符串
+          
+          字符串的长度为4个字符组成
+          1 表示大写  2 表示小写 3 表示数字 4 表示大写小写混合 5 表示小写和数字 6 表示大写和数字 7 表示大写小写和数字
+    
+    注意：可以不设置参数，直接变量名称==string 则使用默认参数值为 变量名称==string(4) 全部小写值
+    ```
+    
+[2] boolean
+
+    ```
+    示例： 
+        boolean(0)
+    boolean类型默认变换类型： 
+        booleanFieldDefaultFlag 0
+    参数说明：
+        生成的值变换类型
+        
+        1 表示true  -1 表示false 0 表示随机true或false
+    
+    注意：可以不设置参数，直接变量名称==boolean 则使用默认参数值为 变量名称==boolean(0)
+    ```
+    
+    
+[3] int
+
+    ```
+    示例： 
+        int(0,100)
+    int类型默认最小最大值范围： 
+        intFieldDefaultMin 0
+        intFieldDefaultMax 10000
+    参数说明：
+        生成的值变化范围
+        
+        表示int最小取值范围
+        表示int最大取值范围
+        
+    注意：可以不设置参数，直接变量名称==int 则使用默认参数值为 变量名称==int(0,10000)
+    ```  
+ 
+[4] double
+
+    ```
+    示例： 
+        double(0,100)
+    double类型默认最小最大值范围及格式： 
+        intFieldDefaultMin 0.0
+        intFieldDefaultMax 10000.0
+        doubleFieldDefaultFormat #0.000
+    参数说明：
+        生成的值变化范围和格式
+        
+        表示double最小取值范围
+        表示double最大取值范围
+        表示保留的小数点位数
+        
+    注意：可以不设置参数，直接变量名称==double 则使用默认参数值为 变量名称==double(0,10000) 格式为#0.000
+    ```   
+
+[5] float
+
+    ```
+    示例： 
+        float(0,100)
+    float类型默认最小最大值范围及格式： 
+        floatFieldDefaultMin 0.0f
+        floatFieldDefaultMax 10000.0f
+        floatFieldDefaultFormat #0.00
+    参数说明：
+        生成的值变化范围和格式
+        
+        表示float最大取值范围
+        表示float最小取值范围
+        表示保留的小数点位数
+        
+    注意：可以不设置参数，直接变量名称==float 则使用默认参数值为 变量名称==float(0,10000) 格式为#0.00
+    ```  
+
+[6] date
+
+    ```
+    示例： 
+        date(0,100)
+    date类型默认开始时间，时间间隔和格式： 
+        dateFieldDefaultStartPoint now
+        dateFieldDefaultFormat yyyy-MM-dd HH:mm:ss
+        dateFieldDefaultInterval 0
+    参数说明：
+        生成的值开始时间及间隔和格式
+        
+        表示开始时间
+        表示时间格式
+        表示时间格式,单位为毫秒值
+        
+    注意：可以不设置参数，直接变量名称==date 则使用默认参数值为 变量名称==date(2018-01-30 00:00:00,yyyy-MM-dd HH:mm:ss,10000) 格式为 yyyy-MM-dd HH:mm:ss
+    ``` 
+ 
+ [7] switching
+ 
+     ```
+     示例： 
+         switching(0)
+     switching类型变化类型及时间间隔的最大最小值： 
+         switchingFieldDefaultType 0
+         switchingFieldDefaultMaxValue 100
+         switchingFieldDefaultMinValue 0
+     参数说明：
+         生成开关量
+         
+         表示开关量的变换类型  -1表示只返回0值 0表示随机时间内返回0或者1 1表示值返回1 大于1的值表示指定时间内变换一次
+         表示开关量随机变化的时间段最大值
+         表示开关量随机变化的时间段最小值
+         
+     注意：可以不设置参数，直接变量名称==switching 则使用默认参数值为 变量名称==switching(0) 值只有 0 和 1
+     ``` 
+    
 ### 在本机的测试结果
 
 > 本次测试只是针对我开发工具到我的虚机得结果，在服务器上性能应该要比这个要高一些。
