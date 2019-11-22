@@ -31,7 +31,8 @@ java -jar 在DataToKafka-3.0.0.jar
  - 等等功能
  
  - 支持CSV文件配置具体点位及取值范围
- - 支持无限发送配置
+ - 支持开关量的自定义随机控制
+ - 支持同一列配置的多种数据类型生成
  
  
 ### 说明
@@ -241,6 +242,20 @@ java -jar 在DataToKafka-3.0.0.jar
   ]
 }
 
+```
+
+
+> CSV点位配置样例
+
+```
+6131.B10DCS10FQ001,switching,2,0
+6131.B10DCS10FQ002,switching,3,0
+6131.B10DCS10FQ002A,int,10,50
+6131.B10DCS10FQ002B,int,100,200
+6131.B10HTA50CQ101,float,0,100
+6131.B10HTB62CT901A,float,100,200
+6131.B10HTA50CM101A,double,50,90
+6131.B10HSK30CP101A,double,-8,10
 ```
 
 

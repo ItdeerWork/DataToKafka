@@ -38,14 +38,14 @@
       "topicName": "itdeer",
       "threads": 1,
       "dataNumber": 100000,
-      "timeFrequency": 50,
+      "timeFrequency": 5000,
       "dataMapping": {
         "type": "csv",
         "appoint": "true",
         "separator": ",",
         "pointFile": {
-          "fields": "tagname==row_1&&tagvalue==int(row_2,row_3)&&isgood==boolean(0)&&sendts==date(2018-01-30 00:00:00,yyyy-MM-dd HH:mm:ss,2000)&&pits==date&&sw==switching(0)",
-          "mapping": "row_1,row_2,row_3",
+          "fields": "tagname==row_1&&tagvalue==row_2(row_3,row_4)&&isgood==boolean(0)&&sendts==date(2018-01-30 00:00:00,yyyy-MM-dd HH:mm:ss,2000)&&pits==date",
+          "mapping": "row_1,row_2,row_3,row_4",
           "fileName": "point.csv"
         }
       }
