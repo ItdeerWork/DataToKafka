@@ -33,18 +33,17 @@
     "switchingFieldDefaultMinValue": 0
   },
   "message": [
-
     {
       "topicName": "itdeer",
       "threads": 1,
-      "dataNumber": 100000,
-      "timeFrequency": 5000,
+      "dataNumber": 5000,
+      "timeFrequency": -1,
       "dataMapping": {
-        "type": "csv",
+        "type": "json",
         "appoint": "true",
         "separator": ",",
         "pointFile": {
-          "fields": "tagname==row_1&&tagvalue==row_2(row_3,row_4)&&isgood==boolean(0)&&sendts==date&&pits==date",
+          "fields": "tagname==row_1&&tagvalue==row_2(row_3,row_4)&&isgood==boolean(0)&&pits==date&&sendts==date",
           "mapping": "row_1,row_2,row_3,row_4",
           "fileName": "point.csv"
         }
