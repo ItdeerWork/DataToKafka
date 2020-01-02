@@ -34,10 +34,10 @@
   },
   "message": [
     {
-      "topicName": "itdeer",
-      "threads": 2,
+      "topicName": "itdeer1",
+      "threads": 3,
       "dataNumber": 50000000,
-      "timeFrequency": 2000,
+      "timeFrequency": 100,
       "dataMapping": {
         "type": "json",
         "appoint": "true",
@@ -46,6 +46,38 @@
           "fields": "tagName==row_1&&tagValue==row_2(row_3,row_4)&&isGood==boolean(0)&&piTS==date&&sendTS==date",
           "mapping": "row_1,row_2,row_3,row_4",
           "fileName": "itdeer.csv"
+        }
+      }
+    },
+    {
+      "topicName": "itdeer2",
+      "threads": 3,
+      "dataNumber": 50000000,
+      "timeFrequency": 100,
+      "dataMapping": {
+        "type": "json",
+        "appoint": "true",
+        "separator": ",",
+        "pointFile": {
+          "fields": "tagName==row_1&&tagValue==row_2(row_3,row_4)&&isGood==boolean(0)&&piTS==date&&sendTS==date",
+          "mapping": "row_1,row_2,row_3,row_4",
+          "fileName": "itdeer2.csv"
+        }
+      }
+    },
+    {
+      "topicName": "itdeer3",
+      "threads": 3,
+      "dataNumber": 50000000,
+      "timeFrequency": 100,
+      "dataMapping": {
+        "type": "json",
+        "appoint": "true",
+        "separator": ",",
+        "pointFile": {
+          "fields": "tagName==row_1&&tagValue==row_2(row_3,row_4)&&isGood==boolean(0)&&piTS==date&&sendTS==date",
+          "mapping": "row_1,row_2,row_3,row_4",
+          "fileName": "itdeer3.csv"
         }
       }
     }
