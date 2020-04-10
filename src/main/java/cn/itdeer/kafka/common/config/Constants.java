@@ -55,7 +55,7 @@ public class Constants {
     public static final Double DOUBLE_FIELD_DEFAULT_MIN = InitConfig.getCommonsConfig().getDoubleFieldDefaultMin();
     public static final Double DOUBLE_FIELD_DEFAULT_MAX = InitConfig.getCommonsConfig().getDoubleFieldDefaultMax();
 
-    public static final String FLOAT_FIELD_DEFAULT_FORMAT = InitConfig.getCommonsConfig().getDoubleFieldDefaultFormat();
+    public static final String FLOAT_FIELD_DEFAULT_FORMAT = InitConfig.getCommonsConfig().getFloatFieldDefaultFormat();
     public static final Float FLOAT_FIELD_DEFAULT_MIN = InitConfig.getCommonsConfig().getFloatFieldDefaultMin();
     public static final Float FLOAT_FIELD_DEFAULT_MAX = InitConfig.getCommonsConfig().getFloatFieldDefaultMax();
 
