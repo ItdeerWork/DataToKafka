@@ -36,7 +36,7 @@ public class DataSource {
      */
     private void init() {
         InitKafka initKafka = new InitKafka();
-        for (Message message : InitConfig.getMessageConfig()) {
+        for (Message message : InitConfig.getInstance().getCb().getMessage()) {
             for (int i = 0; i < message.getThreads(); i++) {
                 KafkaProducer<String, String> producer = initKafka.getKafkaProducer(message.getTopicName());
                 log.info("Create a producer instance of Kafka as the theme [{}]", message.getTopicName());

@@ -44,29 +44,29 @@ public class Constants {
     /**
      * Data Field Config （-string -boolean -double -int -float -date -switching<开关量值>）
      */
-    public static final Integer STRING_FIELD_DEFAULT_LENGTH = InitConfig.getCommonsConfig().getStringFieldDefaultLength();
-    public static final Integer STRING_FIELD_DEFAULT_WRITE = InitConfig.getCommonsConfig().getStringFieldDefaultWrite();
-    public static final Integer BOOLEAN_FIELD_DEFAULT_FLAG = InitConfig.getCommonsConfig().getBooleanFieldDefaultFlag();
+    public static final Integer STRING_FIELD_DEFAULT_LENGTH = InitConfig.getInstance().getCb().getCommons().getStringFieldDefaultLength();
+    public static final Integer STRING_FIELD_DEFAULT_WRITE = InitConfig.getInstance().getCb().getCommons().getStringFieldDefaultWrite();
+    public static final Integer BOOLEAN_FIELD_DEFAULT_FLAG = InitConfig.getInstance().getCb().getCommons().getBooleanFieldDefaultFlag();
 
-    public static final Integer INT_FIELD_DEFAULT_MIN = InitConfig.getCommonsConfig().getIntFieldDefaultMin();
-    public static final Integer INT_FIELD_DEFAULT_MAX = InitConfig.getCommonsConfig().getIntFieldDefaultMax();
+    public static final Integer INT_FIELD_DEFAULT_MIN = InitConfig.getInstance().getCb().getCommons().getIntFieldDefaultMin();
+    public static final Integer INT_FIELD_DEFAULT_MAX = InitConfig.getInstance().getCb().getCommons().getIntFieldDefaultMax();
 
-    public static final String DOUBLE_FIELD_DEFAULT_FORMAT = InitConfig.getCommonsConfig().getDoubleFieldDefaultFormat();
-    public static final Double DOUBLE_FIELD_DEFAULT_MIN = InitConfig.getCommonsConfig().getDoubleFieldDefaultMin();
-    public static final Double DOUBLE_FIELD_DEFAULT_MAX = InitConfig.getCommonsConfig().getDoubleFieldDefaultMax();
+    public static final String DOUBLE_FIELD_DEFAULT_FORMAT = InitConfig.getInstance().getCb().getCommons().getDoubleFieldDefaultFormat();
+    public static final Double DOUBLE_FIELD_DEFAULT_MIN = InitConfig.getInstance().getCb().getCommons().getDoubleFieldDefaultMin();
+    public static final Double DOUBLE_FIELD_DEFAULT_MAX = InitConfig.getInstance().getCb().getCommons().getDoubleFieldDefaultMax();
 
-    public static final String FLOAT_FIELD_DEFAULT_FORMAT = InitConfig.getCommonsConfig().getFloatFieldDefaultFormat();
-    public static final Float FLOAT_FIELD_DEFAULT_MIN = InitConfig.getCommonsConfig().getFloatFieldDefaultMin();
-    public static final Float FLOAT_FIELD_DEFAULT_MAX = InitConfig.getCommonsConfig().getFloatFieldDefaultMax();
+    public static final String FLOAT_FIELD_DEFAULT_FORMAT = InitConfig.getInstance().getCb().getCommons().getFloatFieldDefaultFormat();
+    public static final Float FLOAT_FIELD_DEFAULT_MIN = InitConfig.getInstance().getCb().getCommons().getFloatFieldDefaultMin();
+    public static final Float FLOAT_FIELD_DEFAULT_MAX = InitConfig.getInstance().getCb().getCommons().getFloatFieldDefaultMax();
 
 
-    public static final String DATE_FIELD_DEFAULT_START_POINT = InitConfig.getCommonsConfig().getDateFieldDefaultStartPoint();
-    public static final String DATE_FIELD_DEFAULT_FORMAT = InitConfig.getCommonsConfig().getDateFieldDefaultFormat();
-    public static final Integer DATE_FIELD_DEFAULT_INTERVAL = InitConfig.getCommonsConfig().getDateFieldDefaultInterval();
+    public static final String DATE_FIELD_DEFAULT_START_POINT = InitConfig.getInstance().getCb().getCommons().getDateFieldDefaultStartPoint();
+    public static final String DATE_FIELD_DEFAULT_FORMAT = InitConfig.getInstance().getCb().getCommons().getDateFieldDefaultFormat();
+    public static final Integer DATE_FIELD_DEFAULT_INTERVAL = InitConfig.getInstance().getCb().getCommons().getDateFieldDefaultInterval();
 
-    public static final Integer SWITCHING_FIELD_DEFAULT_TYPE = InitConfig.getCommonsConfig().getSwitchingFieldDefaultType();
-    public static final Integer SWITCHING_FIELD_DEFAULT_MAX_VALUE = InitConfig.getCommonsConfig().getSwitchingFieldDefaultMaxValue();
-    public static final Integer SWITCHING_FIELD_DEFAULT_MIN_VALUE = InitConfig.getCommonsConfig().getSwitchingFieldDefaultMinValue();
+    public static final Integer SWITCHING_FIELD_DEFAULT_TYPE = InitConfig.getInstance().getCb().getCommons().getSwitchingFieldDefaultType();
+    public static final Integer SWITCHING_FIELD_DEFAULT_MAX_VALUE = InitConfig.getInstance().getCb().getCommons().getSwitchingFieldDefaultMaxValue();
+    public static final Integer SWITCHING_FIELD_DEFAULT_MIN_VALUE = InitConfig.getInstance().getCb().getCommons().getSwitchingFieldDefaultMinValue();
 
     /**
      * Data Field Type Config

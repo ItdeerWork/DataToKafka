@@ -56,7 +56,7 @@ public class InitKafka {
      * @return 生产者实例
      */
     private KafkaProducer<String, String> init(String topic) {
-        Kafka kafka = InitConfig.getKafkaConfig();
+        Kafka kafka = InitConfig.getInstance().getCb().getKafka();
 
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());

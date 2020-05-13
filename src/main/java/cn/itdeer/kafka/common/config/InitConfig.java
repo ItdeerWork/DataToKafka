@@ -1,10 +1,13 @@
 package cn.itdeer.kafka.common.config;
 
 import com.alibaba.fastjson.JSON;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.*;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 import static cn.itdeer.kafka.common.config.Constants.CONFIG_FILE_DIRECTORY;
 import static cn.itdeer.kafka.common.config.Constants.CONFIG_FILE_NAME;
@@ -20,14 +23,17 @@ import static cn.itdeer.kafka.common.config.Constants.CONFIG_FILE_NAME;
 @Slf4j
 public class InitConfig {
 
-    private static String configFileName = CONFIG_FILE_NAME;
-    private static StringBuffer sb = new StringBuffer();
-    private static ConfigBean cb;
+    private String configFileName = CONFIG_FILE_NAME;
+    private StringBuffer sb = new StringBuffer();
+
+    @Getter
+    private ConfigBean cb;
 
     /**
-     * 静态代码块，加载配置文件
+     * 初始化配置为实体对象
      */
-    static {
+    private InitConfig() {
+
         String filePath = System.getProperty("user.dir") + File.separator + CONFIG_FILE_DIRECTORY + File.separator + configFileName;
         try (
                 FileReader reader = new FileReader(filePath);
@@ -37,7 +43,7 @@ public class InitConfig {
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
-            init();
+            cb = JSON.parseObject(sb.toString(), ConfigBean.class);
             log.info("Reading the configuration file is complete [{}]", configFileName);
         } catch (IOException e) {
             log.error("Error reading configuration file [{}] error message is as follows:", configFileName, e.getStackTrace());
@@ -45,37 +51,19 @@ public class InitConfig {
     }
 
     /**
-     * 初始化配置为实体对象
+     * 使用内部类，把加载配置改写成单例
      */
-    private static void init() {
-        cb = JSON.parseObject(sb.toString(), ConfigBean.class);
+    private static class SingletonHolder {
+        private static final InitConfig instance = new InitConfig();
     }
 
     /**
-     * 获取通用默认配置
+     * 提供静态可访问方法获取当前类实例
      *
-     * @return 通用配置信息
+     * @return InitConfig 的单例实例
      */
-    public static Commons getCommonsConfig() {
-        return cb.getCommons();
-    }
-
-    /**
-     * 获取Kafka的配置
-     *
-     * @return Kafka的配置信息
-     */
-    public static Kafka getKafkaConfig() {
-        return cb.getKafka();
-    }
-
-    /**
-     * 获取需要发送数据的配置信息
-     *
-     * @return 需要发送的数据配置列表
-     */
-    public static List<Message> getMessageConfig() {
-        return cb.getMessage();
+    public static InitConfig getInstance() {
+        return SingletonHolder.instance;
     }
 
 }
