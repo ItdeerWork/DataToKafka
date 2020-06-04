@@ -1,7 +1,8 @@
 package cn.itdeer.kafka;
 
 import cn.itdeer.kafka.core.control.DataSource;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Description : 程序的入口
@@ -11,8 +12,9 @@ import lombok.extern.slf4j.Slf4j;
  * CreateTime : 2019/11/17/8:16
  */
 
-@Slf4j
 public class Main {
+
+    private static final Logger log = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
         new DataSource().start();

@@ -5,7 +5,8 @@ import cn.itdeer.kafka.common.config.Message;
 import cn.itdeer.kafka.common.config.Points;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,8 +24,9 @@ import java.util.List;
  * CreateTime : 2019/11/17/0:08
  */
 
-@Slf4j
 public class InitCommon {
+
+    private static final Logger log = LogManager.getLogger(InitCommon.class);
 
     /**
      * 初始化文件点位配置的Message信息

@@ -1,9 +1,7 @@
 package cn.itdeer.kafka.common.fields;
 
 import cn.itdeer.kafka.common.config.Constants;
-import lombok.extern.slf4j.Slf4j;
 
-import java.util.Date;
 import java.util.Random;
 
 /**
@@ -14,7 +12,6 @@ import java.util.Random;
  * CreateTime : 2019/11/17/0:25
  */
 
-@Slf4j
 public class SwitchingField implements FieldInterface {
 
     /**

@@ -2,9 +2,10 @@ package cn.itdeer.kafka.common.init;
 
 import cn.itdeer.kafka.common.config.InitConfig;
 import cn.itdeer.kafka.common.config.Kafka;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Properties;
 
@@ -18,8 +19,9 @@ import static cn.itdeer.kafka.common.config.Constants.DEFAULT_PRODUCER_NAME;
  * CreateTime : 2019/11/16/23:51
  */
 
-@Slf4j
 public class InitKafka {
+
+    private static final Logger log = LogManager.getLogger(InitKafka.class);
 
     /**
      * 获取一个生产者实例

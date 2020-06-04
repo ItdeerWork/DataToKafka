@@ -1,7 +1,8 @@
 package cn.itdeer.kafka.common.fields;
 
 import cn.itdeer.kafka.common.config.Constants;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,8 +15,9 @@ import java.util.Date;
  * CreateTime : 2019/8/28/0:33
  */
 
-@Slf4j
 public class DateField implements FieldInterface {
+
+    private static final Logger log = LogManager.getLogger(DateField.class);
 
     /**
      * 开始时间点

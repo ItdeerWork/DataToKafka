@@ -9,8 +9,9 @@ import cn.itdeer.kafka.core.type.AppointCsvProducer;
 import cn.itdeer.kafka.core.type.AppointJsonProducer;
 import cn.itdeer.kafka.core.type.NoAppointCsvProducer;
 import cn.itdeer.kafka.core.type.NoAppointJsonProducer;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 /**
@@ -21,8 +22,9 @@ import org.apache.kafka.clients.producer.KafkaProducer;
  * CreateTime : 2019/11/17/8:45
  */
 
-@Slf4j
 public class DataSource {
+
+    private static final Logger log = LogManager.getLogger(DataSource.class);
 
     /**
      * 启动整个数据源

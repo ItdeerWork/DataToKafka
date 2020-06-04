@@ -5,9 +5,10 @@ import cn.itdeer.kafka.common.config.Message;
 import cn.itdeer.kafka.common.fields.FieldInterface;
 import cn.itdeer.kafka.common.init.InitMessage;
 import cn.itdeer.kafka.common.log.LogPrint;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
@@ -19,8 +20,9 @@ import java.util.*;
  * CreateTime : 2019/8/28/8:35
  */
 
-@Slf4j
 public class AppointCsvProducer extends Thread {
+
+    private static final Logger log = LogManager.getLogger(AppointCsvProducer.class);
 
     /**
      * 应用配置信息

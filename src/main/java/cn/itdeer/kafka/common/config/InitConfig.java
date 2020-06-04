@@ -2,7 +2,8 @@ package cn.itdeer.kafka.common.config;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,8 +21,10 @@ import static cn.itdeer.kafka.common.config.Constants.CONFIG_FILE_NAME;
  * CreateTime : 2019/11/16/23:22
  */
 
-@Slf4j
+
 public class InitConfig {
+
+    private static final Logger log = LogManager.getLogger(InitConfig.class);
 
     private String configFileName = CONFIG_FILE_NAME;
     private StringBuffer sb = new StringBuffer();

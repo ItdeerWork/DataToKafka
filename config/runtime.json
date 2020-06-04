@@ -1,6 +1,6 @@
 {
   "kafka": {
-    "bootstrapServers": "172.24.4.197:6667,172.24.4.198:6667,172.24.4.199:6667",
+    "bootstrapServers": "192.168.1.100:9092",
     "acks": 0,
     "retries": 3,
     "lingerMs": 100,
@@ -34,10 +34,10 @@
   },
   "message": [
     {
-      "topicName": "itdeer1",
-      "threads": 3,
+      "topicName": "itdeer",
+      "threads": 1,
       "dataNumber": 50000000,
-      "timeFrequency": 100,
+      "timeFrequency": 500,
       "dataMapping": {
         "type": "json",
         "appoint": "true",
@@ -45,39 +45,7 @@
         "pointFile": {
           "fields": "tagName==row_1&&tagValue==row_2(row_3,row_4)&&isGood==boolean(0)&&piTS==date&&sendTS==date",
           "mapping": "row_1,row_2,row_3,row_4",
-          "fileName": "itdeer.csv"
-        }
-      }
-    },
-    {
-      "topicName": "itdeer2",
-      "threads": 3,
-      "dataNumber": 50000000,
-      "timeFrequency": 100,
-      "dataMapping": {
-        "type": "json",
-        "appoint": "true",
-        "separator": ",",
-        "pointFile": {
-          "fields": "tagName==row_1&&tagValue==row_2(row_3,row_4)&&isGood==boolean(0)&&piTS==date&&sendTS==date",
-          "mapping": "row_1,row_2,row_3,row_4",
-          "fileName": "itdeer2.csv"
-        }
-      }
-    },
-    {
-      "topicName": "itdeer3",
-      "threads": 3,
-      "dataNumber": 50000000,
-      "timeFrequency": 100,
-      "dataMapping": {
-        "type": "json",
-        "appoint": "true",
-        "separator": ",",
-        "pointFile": {
-          "fields": "tagName==row_1&&tagValue==row_2(row_3,row_4)&&isGood==boolean(0)&&piTS==date&&sendTS==date",
-          "mapping": "row_1,row_2,row_3,row_4",
-          "fileName": "itdeer3.csv"
+          "fileName": "itdeer1.csv"
         }
       }
     }

@@ -6,9 +6,10 @@ import cn.itdeer.kafka.common.fields.FieldInterface;
 import cn.itdeer.kafka.common.init.InitMessage;
 import cn.itdeer.kafka.common.log.LogPrint;
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -23,8 +24,9 @@ import java.util.Map;
  * CreateTime : 2019/8/25/23:51
  */
 
-@Slf4j
 public class NoAppointJsonProducer extends Thread {
+
+    private static final Logger log = LogManager.getLogger(NoAppointJsonProducer.class);
 
     /**
      * 应用配置信息
