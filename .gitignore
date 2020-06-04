@@ -53,6 +53,5 @@ hs_err_pid*
 
 /target/
 *.iml
-*.xml
 /tmp/
 /logs/
