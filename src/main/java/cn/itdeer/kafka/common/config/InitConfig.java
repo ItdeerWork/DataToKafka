@@ -1,5 +1,6 @@
 package cn.itdeer.kafka.common.config;
 
+import cn.itdeer.kafka.Main;
 import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +38,16 @@ public class InitConfig {
      */
     private InitConfig() {
 
-        String filePath = System.getProperty("user.dir") + File.separator + CONFIG_FILE_DIRECTORY + File.separator + configFileName;
+        String filePath;
+
+        if (Main.CONFIG_PATH == null) {
+            filePath = System.getProperty("user.dir");
+        } else {
+            filePath = Main.CONFIG_PATH;
+        }
+
+        filePath = filePath + File.separator + CONFIG_FILE_DIRECTORY + File.separator + configFileName;
+
         try (
                 FileReader reader = new FileReader(filePath);
                 BufferedReader br = new BufferedReader(reader)

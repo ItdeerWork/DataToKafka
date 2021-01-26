@@ -1,5 +1,6 @@
 package cn.itdeer.kafka.common.init;
 
+import cn.itdeer.kafka.Main;
 import cn.itdeer.kafka.common.config.Constants;
 import cn.itdeer.kafka.common.config.Message;
 import cn.itdeer.kafka.common.config.Points;
@@ -62,7 +63,17 @@ public class InitCommon {
     private List<String> readFilePoints(Message message) {
 
         String pointFileName = message.getDataMapping().getPointFile().getFileName();
-        String path = System.getProperty("user.dir") + File.separator + "config" + File.separator + pointFileName;
+
+        String path;
+
+        if (Main.CONFIG_PATH == null) {
+            path = System.getProperty("user.dir");
+        } else {
+            path = Main.CONFIG_PATH;
+        }
+
+        path = path + File.separator + "config" + File.separator + pointFileName;
+
         List<String> list = new ArrayList<>();
 
         try (CSVReader csvReader = new CSVReaderBuilder(new BufferedReader(new InputStreamReader(new FileInputStream(new File(path)), "UTF-8"))).build()) {

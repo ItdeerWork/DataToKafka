@@ -34,10 +34,10 @@
   },
   "message": [
     {
-      "topicName": "itdeer",
+      "topicName": "demo",
       "threads": 1,
       "dataNumber": 50000000,
-      "timeFrequency": 500,
+      "timeFrequency": 2000,
       "dataMapping": {
         "type": "json",
         "appoint": "true",
